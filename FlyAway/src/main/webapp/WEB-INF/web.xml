@@ -5,6 +5,6 @@
 <web-app>
   <display-name>FlyAway</display-name>
   <welcome-file-list>
-  <welcome-file>index.html</welcome-file>
+  <welcome-file>Welcome.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

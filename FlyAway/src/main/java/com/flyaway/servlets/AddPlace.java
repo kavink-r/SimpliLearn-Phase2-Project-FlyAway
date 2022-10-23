@@ -2,7 +2,6 @@ package com.flyaway.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.flyaway.Dao.UsersDaoImpl;
-import com.flyaway.entities.Users;
+import com.flyaway.Dao.AirlinesDaoImpl;
+import com.flyaway.Dao.PlacesDaoImpl;
+import com.flyaway.entities.Airlines;
+import com.flyaway.entities.Places;
 
 /**
- * Servlet implementation class AdminValidation
+ * Servlet implementation class AddPlace
  */
-@WebServlet("/AdminValidation")
-public class AdminValidation extends HttpServlet {
+@WebServlet("/AddPlace")
+public class AddPlace extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminValidation() {
+    public AddPlace() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +35,6 @@ public class AdminValidation extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect("AdminLogin.html");
 	}
 
 	/**
@@ -42,30 +42,19 @@ public class AdminValidation extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		String password = request.getParameter("pass");
-		String msg="";
-		UsersDaoImpl user = new UsersDaoImpl();
-		PrintWriter pw = response.getWriter();
-		List<Users> usr = user.getUser(username);
-		for(Users u:usr) {
-			if(username.equals(u.getUserName())){
-				if(password.equals(u.getPassword())) {
-					RequestDispatcher rd = request.getRequestDispatcher("AdminPanel.html");
-					msg = "Login successfull!!";
-					pw.println(msg);
-					rd.forward(request, response);
-					break;
-				}else {
-					msg = msg +"\nIncorrect password!!";
-				}
-				
-			}else {
-				msg = msg+"\n Username not valid!";
-			}
-		}
+		String placeCode=request.getParameter("code");
+		String placeName=request.getParameter("name");
+		PlacesDaoImpl PlacesDao = new PlacesDaoImpl();
+		Places place = new Places();
+		place.setPlaceCode(placeCode);
+		place.setPlaceName(placeName);
 		
-		pw.println(msg);
+		PlacesDao.insert(place);
+		RequestDispatcher rd = request.getRequestDispatcher("AddPlace.html");
+		PrintWriter pw = response.getWriter();
+		pw.println("<h1>Place added successfully!!</h1>");
+		
+		rd.include(request, response);
 	}
 
 }

@@ -13,10 +13,9 @@ public class Flights {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int flightId;
-	@OneToOne
-	@JoinColumn(name="airlineId")
-	private Airlines airline;
+	private String airline;
 	private String route;
+	private int price;
 	private String source;
 	private String destination;
 	
@@ -32,11 +31,14 @@ public class Flights {
 		this.flightId = flightId;
 	}
 
-	public Airlines getAirline() {
+	
+	
+
+	public String getAirline() {
 		return airline;
 	}
 
-	public void setAirline(Airlines airline) {
+	public void setAirline(String airline) {
 		this.airline = airline;
 	}
 
@@ -62,6 +64,14 @@ public class Flights {
 
 	public void setDestination(String destination) {
 		this.destination = destination;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 			
