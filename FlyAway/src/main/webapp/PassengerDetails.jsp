@@ -20,6 +20,7 @@ FlightsdaoImpl FlightsDao=new FlightsdaoImpl();
 Flights flight = FlightsDao.getById(flightId);
 %>
 <form action="PaymentGateway.jsp" method="post">
+<input type="hidden" id="flightId" name="flightId" value="<%=flight.getFlightId()%>"/>
 No. of Persons:<br>
 <input type="number" id="numofpersons" name="numofpersons" value="<%=persons%>"/><br>
 Travel Date:<br>
@@ -43,14 +44,15 @@ Travel Date:<br>
 </tr>
 </table><br><br>
 
-<%int i=1;
-while(i<=persons) { %>
+<% int i=1;
+while(i<=persons) { 
+%>
 	
-	<br>Enter passenger <%=i %> name: <input type="text" name="passenger<%=i %>>name" id="passenger<%=i %>>name"/><br>
+	<br>Enter passenger <%=i %> name: <input type="text" name="passenger<%=i %>name" id="passenger<%=i %>>name"/><br>
 	
 	<%
 	i++;
-} %>
+		} %>
 <br>Total amount for <%=persons %> persons is <b>INR <%=persons*flight.getPrice() %>/-</b>
 <br><input type="submit" value="Pay Now"/> 
 </form>
