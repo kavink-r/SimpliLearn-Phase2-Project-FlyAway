@@ -111,7 +111,7 @@ public class FlightsdaoImpl implements FlightsDao {
 			factory=HibConfig.getFactory();
 			session=factory.openSession();
 			tx=session.beginTransaction();
-			Query<Flights> query=session.createQuery("select f from com.flyaway.entities.Flights f wehere f.source=?1 and f.destination=?2");
+			Query<Flights> query=session.createQuery("select f from com.flyaway.entities.Flights f where f.source=?1 and f.destination=?2");
 			query.setParameter(1, source);
 			query.setParameter(2, Destination);
 			flights = query.list();
@@ -122,6 +122,29 @@ public class FlightsdaoImpl implements FlightsDao {
 			tx.rollback();
 		}
 		return flights;
+	}
+
+	@Override
+	public Flights getById(int id) {
+		// TODO Auto-generated method stub
+		SessionFactory factory = null;
+		Session session = null;
+		Transaction tx = null;
+		Flights flight=null;
+		try {
+			factory=HibConfig.getFactory();
+			session=factory.openSession();
+			tx=session.beginTransaction();
+			Query<Flights> query=session.createQuery("select f from com.flyaway.entities.Flights f where f.flightId=?1");
+			query.setParameter(1, id);			
+			flight = query.uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return flight;
 	}
 
 }

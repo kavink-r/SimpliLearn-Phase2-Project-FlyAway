@@ -63,7 +63,7 @@ public class ChangePassword extends HttpServlet {
 						pw.println("<html><body>");
 						pw.println("Password successfully changed!!");
 						pw.println("<br>");
-						pw.println("<a href=\"index.html\">Go to home</a>");
+						pw.println("<a href=\"Welcome.jsp\">Go to home</a>");
 						pw.println("</html></body>");
 						break;
 

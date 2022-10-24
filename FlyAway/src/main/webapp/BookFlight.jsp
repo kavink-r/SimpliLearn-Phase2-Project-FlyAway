@@ -11,9 +11,17 @@
 </head>
 <body>
 <h1>Book Flight</h1>
-<br>
-Enter the flight number to book:
-<form action="PaymentGateway" method="post">
+<%
+int persons=Integer.parseInt(request.getParameter("persons"));
+String Date = request.getParameter("traveldate");
+%>
+
+<form action="PassengerDetails.jsp" method="post">
+No. of Persons:<br>
+<input type="text" id="numofpersons" name="numofpersons" value="<%=persons%>"/><br>
+Travel Date:<br>
+<input type="date" id="dateoftravel" name="dateoftravel" value="<%=Date%>"/><br>
+Enter the flight Id to book:<br>
 <input type="number" id="flightno" name="flightno"/>
 <input type="submit" value="Book Flight"/>
 </form>

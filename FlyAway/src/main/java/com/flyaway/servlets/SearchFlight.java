@@ -1,8 +1,10 @@
 package com.flyaway.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +49,32 @@ public class SearchFlight extends HttpServlet {
 		
 		List<Flights> flights=null;
 		FlightsdaoImpl flightsDao=new FlightsdaoImpl();
+		flights = flightsDao.getFlight(source, destination);
+		
+		PrintWriter pw =response.getWriter();
+		RequestDispatcher rd = request.getRequestDispatcher("BookFlight.jsp");
+				
+		pw.println("<html><body>");
+		pw.println("<br><table border=\"1\"><tr><th>FLIGHT ID</th><th>AIRLINE</th><th>ROUTE</th><th>PRICE</th><th>SOURCE</th><th>DESTINATION</th></tr>");
+		
+		for(Flights f:flights) {
+			pw.println("<tr>");
+			pw.println("<td>"+f.getFlightId()+"</td>");
+			pw.println("<td>"+f.getAirline()+"</td>");
+			pw.println("<td>"+f.getRoute()+"</td>");
+			pw.println("<td>"+f.getPrice()+"</td>");
+			pw.println("<td>"+f.getSource()+"</td>");
+			pw.println("<td>"+f.getDestination()+"</td>");
+			pw.println("</tr>");
+									
+		}
+		
+		
+		pw.println("</body></html>");
+		rd.include(request, response);
+	}
+	
+	
 	}
 
-}
+
